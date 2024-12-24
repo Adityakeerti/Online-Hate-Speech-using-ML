@@ -6,6 +6,7 @@ from symspellpy import SymSpell, Verbosity
 from textblob import TextBlob
 from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.sparse import hstack
+import os  # For accessing environment variables
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -75,4 +76,5 @@ def predict():
 
 # Run the Flask app
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.getenv('PORT', 10000))  # Get port from environment variable, default to 10000
+    app.run(debug=True, host='0.0.0.0', port=port)  # Use 0.0.0.0 to listen on all IPs
